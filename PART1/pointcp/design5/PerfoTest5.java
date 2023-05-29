@@ -24,6 +24,11 @@ public class PerfoTest5 {
 		  rotatePoint
 		}
 	
+	/**
+	 * @param min: le minimum nombre a generer
+	 * @param max: le maximum nombre a generer
+	 * @return un double aleatoire entre le min et le max
+	 */
 	public static double randomGenretorDouble(double min, double max)
 	{
 		Random r = new Random();
@@ -31,12 +36,21 @@ public class PerfoTest5 {
 		return randomValue;
 	}
 
+	/**
+	 * @param min: le minimum nombre a generer
+	 * @param max: le maximum nombre a generer
+	 * @return un int aleatoire entre le min et le  max
+	 */
 	public static int randomGenretorInt(double min, double max)
 	{
 		return (int)min + (int)(Math.random() * ((max - min) + 1));
 	}
 	
 	
+	/**
+	 * @param X: nombre de fois que l algorithme sera executer
+	 * affiche la  moyenne, mediane de temps, ainsi que le minimum et le maximum
+	 */
 	public static void test(long X)
 	{
 		ArrayList<Double> perform= new ArrayList<Double>();
@@ -62,6 +76,11 @@ public class PerfoTest5 {
         System.out.println("MEDIAN = "+median+ " | MIN= " + min + " | MAX= " + max + " | MOYENNE= " + moyenne);
 	}
 	
+	/**
+	 * @param perform: liste du temps mis a chaque execution de l algorithme
+	 * @param sum: la somme des temps contenu dans la liste perform
+	 * @param s: mot decrivant le test
+	 */
 	public static void performance(ArrayList<Double> perform, double sum, String s)
 	{
   
@@ -77,17 +96,26 @@ public class PerfoTest5 {
 	}
 	
 	
+	/**
+	 * cree les points aleatoirements et effectue tous les operations disponibles pour ces points
+	 */
 	public static void algo() 
 	{
+		// si var et var2 determineront si nous creeons un objet de type pointCP2 ou pointCP3
 		int var = randomGenretorInt(1,2);
 		int var2 = randomGenretorInt(1,2);
 		PointCP5 point= (var==1)?new PointCP2(randomGenretorDouble(1,10),randomGenretorDouble(1,10)):new PointCP3(randomGenretorDouble(1,10),randomGenretorDouble(1,10));
+		//appels des fonctions get qui feront la conversion si besoin
 		double d =point.getRho();
 		double d2= point.getTheta();
 		double d3 = point.getX();
 		double d4 = point.getY();
+		//appel de la fonction de conversation adequat selon le type de point
 		PointCP5 convt = (var==1)?((PointCP2) point).convertStorageToCartesian():((PointCP3) point).convertStorageToPolar();
+		//creation aleatoire d un 2e point de type CP2 ou CP3 en fonction de la valeur de var2
 		PointCP5 point2 = (var2==1)?new PointCP2(randomGenretorDouble(1,10),randomGenretorDouble(1,10)):new PointCP3(randomGenretorDouble(1,10),randomGenretorDouble(1,10));
+		
+		//appel des fonctions de rotations, calcul distance et toString sur le 2e point
 		point.rotatePoint(randomGenretorDouble(0,360));
 		point.getDistance(point2);
 		point.toString();
@@ -95,6 +123,10 @@ public class PerfoTest5 {
 	}
 	
 	
+	/**
+	 * @param X: nombre de fois que l algorithme sera executer
+	 * @param func: la fonction ou methode dont on veut les informations sur le temps d execution
+	 */
 	public static void FonctionTest(long X, fonct func)
 	{
 		ArrayList<Double> perform= new ArrayList<Double>();
@@ -141,7 +173,7 @@ public class PerfoTest5 {
 				point.getDistance(point2);
 				double endTime9 = System.currentTimeMillis();
 		
-				
+				//prendra le temps en consideration le temps de la fonction demande en parametre
 				
 				  switch(func) {
 			      case creationVar:
@@ -179,6 +211,7 @@ public class PerfoTest5 {
 		 }
 
 		 int n=perform.size();
+		 //ranger par ordre croissant
 			perform.sort(Comparator.naturalOrder());
 			double median =(n % 2 != 0)?perform.get(n/2):(double) ((perform.get((n - 1) / 2) + perform.get(n / 2)) / 2.0);
 			double min = perform.get(0);
